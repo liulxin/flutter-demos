@@ -1,56 +1,39 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-void main() {
-  runApp(new MyApp());
-}
+void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appName = 'Custom Themes';
+    var title = 'Web Images';
 
     return new MaterialApp(
-      title: appName,
-      theme: new ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.lightBlue[800],
-        accentColor: Colors.cyan[600],
-      ),
-      home: new MyHomePage(
-        title: appName,
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  final String title;
-
-  MyHomePage({Key key, @required this.title}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(title),
-      ),
-      body: new Center(
-        child: new Container(
-          color: Theme.of(context).accentColor,
-          child: new Text(
-            'Text with a background color',
-            style: Theme.of(context).textTheme.title,
+      title: title,
+      home: new Scaffold(
+          appBar: new AppBar(
+            title: new Text(title),
           ),
-        ),
-      ),
-      floatingActionButton: new Theme(
-        data: Theme.of(context).copyWith(accentColor: Colors.yellow),
-        child: new FloatingActionButton(
-          onPressed: null,
-          child: new Icon(Icons.add),
-        ),
-      ),
+          body: new Column(
+            children: <Widget>[
+              // 静态图
+              new Image.network('https://static.web.sdo.com/gmys/20190219_web/g.png'),
+              // gif
+              new Image.network('https://static.web.sdo.com/jijiamobile/pic/gmysweb6/pc/play.gif'),
+              // 占位符淡入图片
+              new FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: 'https://static.web.sdo.com/gmys/20190219_web/g.png',
+              ),
+              // 缓存图片
+              new CachedNetworkImage(
+                  imageUrl: 'https://static.web.sdo.com/gmys/20190219_web/g.png',
+                  placeholder: (context, url) => new CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => Icon(Icons.error)
+              ),
+            ],
+          )),
     );
   }
 }

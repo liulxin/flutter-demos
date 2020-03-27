@@ -27,6 +27,9 @@ dependencies:
   # english_words 3.1.5
   english_words: 3.1.5
 
+  transparent_image: ^1.0.0
+  cached_network_image: 2.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
