@@ -1,109 +1,56 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
-void main() => runApp(new MyApp());
+void main() {
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    final appName = 'Custom Themes';
+
     return new MaterialApp(
-        title: 'Welcome to Fultter',
-        theme: new ThemeData(primaryColor: Colors.deepPurpleAccent),
-        home: new RandomWords());
+      title: appName,
+      theme: new ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.lightBlue[800],
+        accentColor: Colors.cyan[600],
+      ),
+      home: new MyHomePage(
+        title: appName,
+      ),
+    );
   }
 }
 
-class RandomWords extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => new RandomWordsState();
-}
+class MyHomePage extends StatelessWidget {
+  final String title;
 
-class RandomWordsState extends State {
-  final _suggestions = <WordPair>[];
-  final _biggerFont = const TextStyle(fontSize: 18.0);
-  // set 中不允许出现重复的值
-  final _saved = new Set<WordPair>();
-
-  // 点击跳转到收藏页
-  void _pushSaved() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      final tiles = _saved.map(
-        (pair) {
-          return new ListTile(
-            title: new Text(
-              pair.asPascalCase,
-              style: _biggerFont,
-            ),
-          );
-        },
-      );
-      final divided = ListTile.divideTiles(
-        context: context,
-        tiles: tiles,
-      ).toList();
-
-      return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Saved Suggestions'),
-        ),
-        body: new ListView(children: divided),
-      );
-    }));
-  }
-
-  // 生成列表
-  Widget _buildSuggestions() {
-    return new ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, i) {
-        if (i.isOdd) return new Divider();
-        final index = i ~/ 2;
-        if (index >= _suggestions.length) {
-          _suggestions.addAll(generateWordPairs().take(10));
-        }
-        return _buildRow(_suggestions[index]);
-      },
-    );
-  }
-
-  // 单个单词项
-  Widget _buildRow(WordPair pair) {
-    final alreadySaved = _saved.contains(pair);
-    return new ListTile(
-      title: new Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-      trailing: new Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-      ),
-      onTap: () {
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
-    );
-  }
+  MyHomePage({Key key, @required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-//    final wordPair = new WordPair.random();
-//    return new Text(wordPair.asPascalCase);
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Startup Name Generator'),
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved)
-        ],
+        title: new Text(title),
       ),
-      body: _buildSuggestions(),
+      body: new Center(
+        child: new Container(
+          color: Theme.of(context).accentColor,
+          child: new Text(
+            'Text with a background color',
+            style: Theme.of(context).textTheme.title,
+          ),
+        ),
+      ),
+      floatingActionButton: new Theme(
+        data: Theme.of(context).copyWith(accentColor: Colors.yellow),
+        child: new FloatingActionButton(
+          onPressed: null,
+          child: new Icon(Icons.add),
+        ),
+      ),
     );
   }
 }
