@@ -8,9 +8,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return new MaterialApp(
-      title: 'Welcome to Fultter',
-      home: new RandomWords()
-    );
+        title: 'Welcome to Fultter',
+        theme: new ThemeData(primaryColor: Colors.deepPurpleAccent),
+        home: new RandomWords());
   }
 }
 
@@ -24,6 +24,33 @@ class RandomWordsState extends State {
   final _biggerFont = const TextStyle(fontSize: 18.0);
   // set 中不允许出现重复的值
   final _saved = new Set<WordPair>();
+
+  // 点击跳转到收藏页
+  void _pushSaved() {
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      final tiles = _saved.map(
+        (pair) {
+          return new ListTile(
+            title: new Text(
+              pair.asPascalCase,
+              style: _biggerFont,
+            ),
+          );
+        },
+      );
+      final divided = ListTile.divideTiles(
+        context: context,
+        tiles: tiles,
+      ).toList();
+
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Saved Suggestions'),
+        ),
+        body: new ListView(children: divided),
+      );
+    }));
+  }
 
   // 生成列表
   Widget _buildSuggestions() {
@@ -54,7 +81,7 @@ class RandomWordsState extends State {
       ),
       onTap: () {
         setState(() {
-          if(alreadySaved) {
+          if (alreadySaved) {
             _saved.remove(pair);
           } else {
             _saved.add(pair);
@@ -69,11 +96,14 @@ class RandomWordsState extends State {
     // TODO: implement build
 //    final wordPair = new WordPair.random();
 //    return new Text(wordPair.asPascalCase);
-     return new Scaffold(
-       appBar: new AppBar(
-         title:new Text('Startup Name Generator') ,
-       ),
-       body: _buildSuggestions(),
-     );
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Startup Name Generator'),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved)
+        ],
+      ),
+      body: _buildSuggestions(),
+    );
   }
 }
