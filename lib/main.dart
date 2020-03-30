@@ -6,24 +6,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = 'Horizontal List';
-    var stack = new Stack(
-      alignment: const FractionalOffset(0.5, 0.8),
-      children: <Widget>[
-        new CircleAvatar(
-          backgroundImage: new NetworkImage(
-            'http://i0.hdslb.com/bfs/face/6f7886981f8e8e9b3a86719568f6580786e0684d.jpg@52w_52h.webp',
-          ),
-          radius: 100.0,
-        ),
-        new Container(
-          width: 100.0,
-          height: 20.0,
-          color: Colors.lightBlueAccent,
-          child: new Text('this is flutter'),
-        ),
-        Positioned(child: new Text('this is flutter1'), top: 10.0, left: 20.0),
-      ],
-    );
 
     return new MaterialApp(
       title: title,
@@ -32,7 +14,32 @@ class MyApp extends StatelessWidget {
             title: new Text(title),
           ),
           body: new Center(
-            child: stack,
+            child: new Card(
+              color: Color.fromARGB(6, 55, 44, 20),
+              child: new Column(
+                children: <Widget>[
+                  new ListTile(
+                    leading: new Icon(Icons.phone),
+                    title: new Text('电话'),
+                  ),
+                  new Divider(),
+                  new ListTile(
+                    leading: new Icon(Icons.add),
+                    title: new Text('添加'),
+                  ),
+                  new Divider(),
+                  new ListTile(
+                    leading: new Icon(Icons.remove),
+                    title: new Text('移除'),
+                  ),
+                  new Divider(),
+                  new ListTile(
+                    leading: new Icon(Icons.train),
+                    title: new Text('行程'),
+                  ),
+                ],
+              ),
+            ),
           )),
     );
   }
