@@ -6,58 +6,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = 'Horizontal List';
+    var stack = new Stack(
+      alignment: const FractionalOffset(0.5, 0.8),
+      children: <Widget>[
+        new CircleAvatar(
+          backgroundImage: new NetworkImage(
+            'http://i0.hdslb.com/bfs/face/6f7886981f8e8e9b3a86719568f6580786e0684d.jpg@52w_52h.webp',
+          ),
+          radius: 100.0,
+        ),
+        new Container(
+          width: 100.0,
+          height: 20.0,
+          color: Colors.lightBlueAccent,
+          child: new Text('this is flutter'),
+        ),
+        Positioned(child: new Text('this is flutter1'), top: 10.0, left: 20.0),
+      ],
+    );
 
     return new MaterialApp(
       title: title,
       home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text(title),
-        ),
-        body: new Row(
-          children: <Widget>[
-            Expanded(
-              child: new RaisedButton(
-                onPressed: () {},
-                color: Colors.amber,
-                child: new Text('button'),
-              ),
-            ),
-            new RaisedButton(
-              onPressed: () {},
-              color: Colors.blue,
-              child: new Text('button'),
-            ),
-            new Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new RaisedButton(
-                  onPressed: () {},
-                  color: Colors.red,
-                  child: new Text('button'),
-                ),
-                new RaisedButton(
-                  onPressed: () {},
-                  color: Colors.pink,
-                  child: new Text('button'),
-                ),
-                new RaisedButton(
-                  onPressed: () {},
-                  color: Colors.lightBlueAccent,
-                  child: new Text('button'),
-                )
-              ],
-            ),
-            Expanded(
-              child: new RaisedButton(
-                onPressed: () {},
-                color: Colors.lightGreen,
-                child: new Text('button'),
-              ),
-            ),
-          ],
-        ),
-      ),
+          appBar: new AppBar(
+            title: new Text(title),
+          ),
+          body: new Center(
+            child: stack,
+          )),
     );
   }
 }
