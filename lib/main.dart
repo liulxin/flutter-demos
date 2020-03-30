@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(
+    new MyApp(items: new List<String>.generate(10, (i) => 'this is item $i')));
 
 class MyApp extends StatelessWidget {
+  final List<String> items;
+
+  MyApp({Key key, @required this.items}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final title = 'Horizontal List';
@@ -10,23 +15,48 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: title,
       home: new Scaffold(
-          appBar: new AppBar(
-            title: new Text(title),
-          ),
-          body: new Center(
-            child: new Container(
-              width: 300.0,
-              height: 300.0,
-              color: Colors.lightGreen,
-              child: new Image.network(
-                'https://i0.hdslb.com/bfs/face/7a92729e9ab5f485f70858e42867e16c76b4a1e0.jpg@70w_70h_1c_100q.webp',
-                fit: BoxFit.none,
-                color: Colors.pink,
-                colorBlendMode: BlendMode.darken,
-                repeat: ImageRepeat.repeatX,
-              ),
+        appBar: new AppBar(
+          title: new Text(title),
+        ),
+        body: new Center(
+          child: new Container(
+            height: 200.0,
+//            child: MyList(),
+            child: new ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return new ListTile(
+                  title: new Text('${items[index]}'),
+                );
+              },
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
+
+//class MyList extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    // TODO: implement build
+//    return new ListView(
+//      scrollDirection: Axis.horizontal,
+//      children: <Widget>[
+//        new Container(
+//          width: 180.0,
+//          color: Colors.lightGreen,
+//        ),
+//        new Container(
+//          width: 180.0,
+//          color: Colors.deepPurple,
+//        ),
+//        new Container(
+//          width: 180.0,
+//          color: Colors.amber,
+//        )
+//      ],
+//    );
+//  }
+//}
