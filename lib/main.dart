@@ -14,24 +14,19 @@ class MyApp extends StatelessWidget {
             title: new Text(title),
           ),
           body: new Center(
-              child: new Container(
-            width: double.infinity,
-            height: 180.0,
-            margin: const EdgeInsets.all(10.0),
-            padding: const EdgeInsets.fromLTRB(16.0, 10.0, 0.0, 2.0),
-            child: new Text(
-              'hello container',
-              style: TextStyle(fontSize: 14.0, color: Colors.pink),
-              textAlign: TextAlign.center,
+            child: new Container(
+              width: 300.0,
+              height: 300.0,
+              color: Colors.lightGreen,
+              child: new Image.network(
+                'https://i0.hdslb.com/bfs/face/7a92729e9ab5f485f70858e42867e16c76b4a1e0.jpg@70w_70h_1c_100q.webp',
+                fit: BoxFit.none,
+                color: Colors.pink,
+                colorBlendMode: BlendMode.darken,
+                repeat: ImageRepeat.repeatX,
+              ),
             ),
-            alignment: Alignment.topLeft,
-//                color: Colors.lightGreenAccent,
-            decoration: new BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Colors.lightGreen, Colors.pink],
-                ),
-                border: Border.all(width: 2.0, color: Colors.deepPurple)),
-          ))),
+          )),
     );
   }
 }
