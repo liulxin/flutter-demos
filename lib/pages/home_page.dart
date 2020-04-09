@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutterapp/dao/home_dao.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -16,6 +19,7 @@ class _HomePageState extends State<HomePage> {
     'https://dimg04.c-ctrip.com/images/700c10000000pdili7D8B_780_235_57.jpg'
   ];
   double _appBarAlpha = 0;
+  String resString = '';
 
   _onScroll(offset) {
     double alpha = offset / APPBAR_SCROLL_OFFSET;
@@ -29,6 +33,26 @@ class _HomePageState extends State<HomePage> {
       _appBarAlpha = alpha;
     });
     print(alpha);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
+
+  loadData() {
+    HomeDao.fetch().then((result) {
+//      print(result is HomeModel);
+      setState(() {
+        resString = json.encode(result);
+      });
+    }).catchError((e) {
+      setState(() {
+        resString = e.toString();
+      });
+    });
   }
 
   @override
@@ -66,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   height: 800,
-                  child: Text('s'),
+                  child: Text(resString),
                 )
               ],
             ),
