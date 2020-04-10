@@ -5,6 +5,7 @@ import 'package:flutterapp/model/common_model.dart';
 import 'package:flutterapp/model/grid_nav_model.dart';
 import 'package:flutterapp/widget/grid_nav.dart';
 import 'package:flutterapp/widget/local_nav.dart';
+import 'package:flutterapp/widget/sub_nav.dart';
 
 const APPBAR_SCROLL_OFFSET = 100;
 
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   ];
   double _appBarAlpha = 0;
   List<CommonModel> localNavList = [];
+  List<CommonModel> subNavList = [];
   GridNavModel gridNavList;
 
   _onScroll(offset) {
@@ -50,6 +52,7 @@ class _HomePageState extends State<HomePage> {
 //      print(result is HomeModel);
       setState(() {
         localNavList = result.localNavList;
+        subNavList = result.subNavList;
         gridNavList = result.gridNav;
       });
     }).catchError((e) {
@@ -99,6 +102,12 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
                     child: GridNav(
                       gridNavModel: gridNavList,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(7, 0, 7, 4),
+                    child: SubNav(
+                      subNavList: subNavList,
                     ),
                   ),
                 ],

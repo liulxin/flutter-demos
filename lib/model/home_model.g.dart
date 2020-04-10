@@ -19,6 +19,10 @@ HomeModel _$HomeModelFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : CommonModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    subNavList: (json['subNavList'] as List)
+        ?.map((e) =>
+            e == null ? null : CommonModel.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     gridNav: json['gridNav'] == null
         ? null
         : GridNavModel.fromJson(json['gridNav'] as Map<String, dynamic>),
@@ -32,6 +36,7 @@ Map<String, dynamic> _$HomeModelToJson(HomeModel instance) => <String, dynamic>{
       'config': instance.config,
       'bannerList': instance.bannerList,
       'localNavList': instance.localNavList,
+      'subNavList': instance.subNavList,
       'gridNav': instance.gridNav,
       'salesBox': instance.salesBox,
     };

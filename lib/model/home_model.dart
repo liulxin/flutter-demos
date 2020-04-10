@@ -11,6 +11,7 @@ class HomeModel {
   final ConfigModel config;
   final List<CommonModel> bannerList;
   final List<CommonModel> localNavList;
+  final List<CommonModel> subNavList;
   final GridNavModel gridNav;
   final SalesBoxModel salesBox;
 
@@ -18,6 +19,7 @@ class HomeModel {
       {this.config,
       this.bannerList,
       this.localNavList,
+      this.subNavList,
       this.gridNav,
       this.salesBox});
 
