@@ -68,11 +68,12 @@ class _WebViewState extends State<WebView> {
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     _onUrlChanged.cancel();
     _onStateChanged.cancel();
     _onHttpError.cancel();
     flutterWebviewPlugin.dispose();
+    // 放到最后
+    super.dispose();
   }
 
   @override
